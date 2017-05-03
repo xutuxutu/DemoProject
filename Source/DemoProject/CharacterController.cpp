@@ -3,6 +3,7 @@
 #include "DemoProject.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "CharacterController.h"
+#include "Cha_Sparky.h"
 
 
 ACharacterController::ACharacterController()
@@ -12,9 +13,7 @@ ACharacterController::ACharacterController()
 void ACharacterController::BeginPlay()
 {
 	bShowMouseCursor = true;
-	//PCamera = GWorld->SpawnActor<APlayerCamera>(FVector(0, 0, 0), FRotator(0, 0, 0));
-	//SetViewTarget(PCamera);
-	//PCamera->AutoReceiveInput = EAutoReceiveInput::Player0;
+	Player = Cast<ACha_Sparky>(GetPawn());
 }
 
 
@@ -30,21 +29,20 @@ void ACharacterController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
 
-	CharacterMovement();
 	CharacterRotation();
-
-	//PCamera->SetCameraPosition(GetPawn()->GetActorLocation());
+	CharacterMovement();
 }
 
-void ACharacterController::ForwardKeyDown(float forward) {	MoveVector.X = forward; }
+void ACharacterController::ForwardKeyDown(float forward) { MoveVector.X = forward; }
 void ACharacterController::RightKeyDown(float right) { MoveVector.Y = right; }
 
 void ACharacterController::CharacterMovement()
 {
 	MoveVector.Normalize();
+	Player->SetMoveAnim(MoveVector);
 	if (MoveVector.Size() > 0.0f)
 	{
-		GetPawn()->AddMovementInput(MoveVector);
+		GetPawn()->AddMovementInput(MoveVector * Player->GetRunSpeed());
 	}
 }
 
@@ -62,6 +60,5 @@ void ACharacterController::CharacterRotation()
 	angle = UKismetMathLibrary::RadiansToDegrees(angle);
 
 	GetPawn()->SetActorRotation(FRotator(0.0f, 90.0f - angle, 0.0f));
-
 	//DrawDebugSphere(GetWorld(), worldPos, 1, 45, FColor(83, 255, 83, 255), false, 0.15f);
 }

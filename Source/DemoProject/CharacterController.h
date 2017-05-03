@@ -15,7 +15,7 @@ class DEMOPROJECT_API ACharacterController : public APlayerController
 	
 private:
 	FVector MoveVector;
-	class APlayerCamera* PCamera;
+	class ACha_Sparky* Player;
 public :
 	ACharacterController();
 
