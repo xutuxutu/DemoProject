@@ -8,6 +8,7 @@
 
 ACharacterController::ACharacterController()
 {
+	MoveVector = FVector(0.0f, 0.0f, 0.0f);
 }
 
 void ACharacterController::BeginPlay()
@@ -23,6 +24,8 @@ void ACharacterController::SetupInputComponent()
 
 	InputComponent->BindAxis("MoveForward", this, &ACharacterController::ForwardKeyDown);
 	InputComponent->BindAxis("MoveRight", this, &ACharacterController::RightKeyDown);
+	InputComponent->BindAction("Fire", IE_Pressed, this, &ACharacterController::LeftMouseButtonDown);
+	InputComponent->BindAction("Fire", IE_Released, this, &ACharacterController::LeftMouseButtonUp);
 }
 
 void ACharacterController::PlayerTick(float DeltaTime)
@@ -35,6 +38,14 @@ void ACharacterController::PlayerTick(float DeltaTime)
 
 void ACharacterController::ForwardKeyDown(float forward) { MoveVector.X = forward; }
 void ACharacterController::RightKeyDown(float right) { MoveVector.Y = right; }
+void ACharacterController::LeftMouseButtonDown()
+{
+	//Player->SetFireButtonDown(true);
+}
+void ACharacterController::LeftMouseButtonUp()
+{
+	//Player->SetFireButtonDown(false);
+}
 
 void ACharacterController::CharacterMovement()
 {

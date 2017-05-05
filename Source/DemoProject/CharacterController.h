@@ -24,8 +24,12 @@ protected:
 	virtual void PlayerTick(float DeltaTime) override;
 	virtual void SetupInputComponent() override;
 
+	//Binding Function
 	void ForwardKeyDown(float forward);
 	void RightKeyDown(float right);
+	void LeftMouseButtonDown();
+	void LeftMouseButtonUp();
+	//Movement
 	void CharacterMovement();
 	void CharacterRotation();
 };

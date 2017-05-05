@@ -16,13 +16,9 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* camera;
 
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "AnimationProperty", meta=(AllowPrivateAccess="true"))
-	float Forward;
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "AnimationProperty", meta = (AllowPrivateAccess = "true"))
-	float Right;
-
 	float RunSpeed;
 	float WalkSpeed;
+	class USparkyAnimCtrl* SparkyAnimCtrl;
 public:
 	// Sets default values for this character's properties
 	ACha_Sparky();
@@ -34,8 +30,11 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	void SetMoveAnim(FVector moveVector);
 	
 	float GetRunSpeed() { return RunSpeed; }
 	float GetWalkSpeed() { return WalkSpeed; }
+
+	//AnimationFunction
+	void SetMoveAnim(FVector moveVector);
+	void SetFireButtonDown(bool isDown);
 };

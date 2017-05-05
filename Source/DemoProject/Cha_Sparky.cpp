@@ -2,6 +2,7 @@
 
 #include "DemoProject.h"
 #include "Cha_Sparky.h"
+#include "SparkyAnimCtrl.h"
 
 
 // Sets default values
@@ -15,8 +16,6 @@ ACha_Sparky::ACha_Sparky()
 	GetMesh()->SetSkeletalMesh(model.Object);
 
 	ConstructorHelpers::FObjectFinder<UAnimBlueprint> animBP(TEXT("AnimBlueprint'/Game/03_BluePrint/AB_SparkyAnimCtrl.AB_SparkyAnimCtrl'"));
-	if (!animBP.Succeeded())
-		UE_LOG(LogClass, Warning, TEXT("Failed Loaded AnimBlueprint"));
 	GetMesh()->SetAnimInstanceClass(animBP.Object->GetAnimBlueprintGeneratedClass());
 
 	GetMesh()->SetRelativeLocationAndRotation(FVector(0.0f, 0.0f, -70.0f), FRotator(0.0f, -90.0f, 0.0f));
@@ -46,6 +45,7 @@ ACha_Sparky::ACha_Sparky()
 void ACha_Sparky::BeginPlay()
 {
 	Super::BeginPlay();
+	SparkyAnimCtrl = Cast<USparkyAnimCtrl>(GetMesh()->GetAnimInstance());
 }
 
 // Called every frame
@@ -58,8 +58,10 @@ void ACha_Sparky::SetMoveAnim(FVector moveVector)
 {
 	moveVector = GetTransform().InverseTransformVector(moveVector);
 	moveVector.Normalize();
+	SparkyAnimCtrl->SetMoveProperty(moveVector.X, moveVector.Y);
+}
 
-	Forward = moveVector.X;
-	Right = moveVector.Y;
-	//UE_LOG(LogClass, Warning, TEXT("%f %f %f"), moveVector.X, moveVector.Y, moveVector.Z);
+void ACha_Sparky::SetFireButtonDown(bool isDown)
+{
+
 }
