@@ -40,11 +40,11 @@ void ACharacterController::ForwardKeyDown(float forward) { MoveVector.X = forwar
 void ACharacterController::RightKeyDown(float right) { MoveVector.Y = right; }
 void ACharacterController::LeftMouseButtonDown()
 {
-	//Player->SetFireButtonDown(true);
+	Player->SetFireButtonDown(true);
 }
 void ACharacterController::LeftMouseButtonUp()
 {
-	//Player->SetFireButtonDown(false);
+	Player->SetFireButtonDown(false);
 }
 
 void ACharacterController::CharacterMovement()

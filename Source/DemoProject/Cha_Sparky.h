@@ -30,7 +30,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	
+
 	float GetRunSpeed() { return RunSpeed; }
 	float GetWalkSpeed() { return WalkSpeed; }
 

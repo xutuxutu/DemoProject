@@ -46,6 +46,7 @@ void ACha_Sparky::BeginPlay()
 {
 	Super::BeginPlay();
 	SparkyAnimCtrl = Cast<USparkyAnimCtrl>(GetMesh()->GetAnimInstance());
+	SparkyAnimCtrl->Init();
 }
 
 // Called every frame
@@ -63,5 +64,5 @@ void ACha_Sparky::SetMoveAnim(FVector moveVector)
 
 void ACha_Sparky::SetFireButtonDown(bool isDown)
 {
-
+	SparkyAnimCtrl->SetFireButtonDown(isDown);
 }
