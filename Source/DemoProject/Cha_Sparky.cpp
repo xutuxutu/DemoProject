@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "DemoProject.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "Cha_Sparky.h"
 #include "SparkyAnimCtrl.h"
 
@@ -37,8 +38,12 @@ ACha_Sparky::ACha_Sparky()
 
 	camera->bUsePawnControlRotation = false;
 
+	CurMoveVec = FVector2D(0.0f, 0.0f);
+	FinalMoveVec = FVector2D(0.0f, 0.0f);
 	RunSpeed = 0.5f;
 	WalkSpeed = 0.2f;
+	NormalAttackSpeed = 0.2f;
+	FirePointSocketName = FName(TEXT("FirePointSocket"));
 }
 
 // Called when the game starts or when spawned
@@ -46,7 +51,6 @@ void ACha_Sparky::BeginPlay()
 {
 	Super::BeginPlay();
 	SparkyAnimCtrl = Cast<USparkyAnimCtrl>(GetMesh()->GetAnimInstance());
-	SparkyAnimCtrl->Init();
 }
 
 // Called every frame
@@ -59,10 +63,25 @@ void ACha_Sparky::SetMoveAnim(FVector moveVector)
 {
 	moveVector = GetTransform().InverseTransformVector(moveVector);
 	moveVector.Normalize();
-	SparkyAnimCtrl->SetMoveProperty(moveVector.X, moveVector.Y);
+	FinalMoveVec = FVector2D(moveVector.X, moveVector.Y);
+	
+	CurMoveVec.X = UKismetMathLibrary::Lerp(CurMoveVec.X, FinalMoveVec.X, FApp::GetDeltaTime() * 5.0f);
+	CurMoveVec.Y = UKismetMathLibrary::Lerp(CurMoveVec.Y, FinalMoveVec.Y, FApp::GetDeltaTime() * 5.0f);
+
+	SparkyAnimCtrl->SetMoveProperty(CurMoveVec.X, CurMoveVec.Y);
 }
 
 void ACha_Sparky::SetFireButtonDown(bool isDown)
 {
 	SparkyAnimCtrl->SetFireButtonDown(isDown);
+}
+
+float ACha_Sparky::GetMoveSpeed()
+{
+	return SparkyAnimCtrl->GetAnimStatus() == SPARKY_ANIM_STATUS::PEACE ? RunSpeed : WalkSpeed;
+}
+
+FVector ACha_Sparky::GetFirePointSocketLocation() const
+{
+	return GetMesh()->GetSocketLocation(FirePointSocketName);
 }

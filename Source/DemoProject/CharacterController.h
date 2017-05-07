@@ -18,7 +18,9 @@ private:
 	class ACha_Sparky* Player;
 public :
 	ACharacterController();
-
+	class ASparkyObjectPool* SparkyObjectPool;
+	FTimerHandle TimerHandle;
+	bool IsFire;
 protected:
 	virtual void BeginPlay() override;
 	virtual void PlayerTick(float DeltaTime) override;
@@ -29,7 +31,12 @@ protected:
 	void RightKeyDown(float right);
 	void LeftMouseButtonDown();
 	void LeftMouseButtonUp();
+
 	//Movement
 	void CharacterMovement();
 	void CharacterRotation();
+
+	//Action
+	void NormalAttack();
+	void NormalAttackRoutine();
 };

@@ -10,11 +10,6 @@ USparkyAnimCtrl::USparkyAnimCtrl()
 	NormalAttackMontage = normalAtkMontage.Object;
 }
 
-void USparkyAnimCtrl::Init()
-{
-	//ConstructorHelpers::FObjectFinder<UAnimMontage> normalAtkMontage(TEXT("AnimMontage'/Game/03_BluePrint/Sparky_NormalAttack_Montage.Sparky_NormalAttack_Montage'"));
-}
-
 void USparkyAnimCtrl::SetMoveProperty(float forward, float right)
 {
 	Forward = forward;
@@ -27,14 +22,14 @@ void USparkyAnimCtrl::SetFireButtonDown(bool fireButtonDown)
 	if (FireButtonDown)
 	{
 		Montage_Play(NormalAttackMontage, 1.0f, EMontagePlayReturnType::MontageLength, 0.0f);
-		SparkyStatus = SPARKY_STATUS::BATTLE;
+		SparkyAnimStatus = SPARKY_ANIM_STATUS::BATTLE;
 	}
 	else
 	{
 		if (Montage_IsPlaying(NormalAttackMontage))
 		{
 			Montage_JumpToSection(TEXT("Attack_LoopEnd"), NormalAttackMontage);
-			SparkyStatus = SPARKY_STATUS::PEACE;
+			SparkyAnimStatus = SPARKY_ANIM_STATUS::PEACE;
 		}
 	}
 }
@@ -42,5 +37,4 @@ void USparkyAnimCtrl::SetFireButtonDown(bool fireButtonDown)
 void USparkyAnimCtrl::SetIsFire(bool isFire)
 {
 	IsFire = isFire;
-
 }

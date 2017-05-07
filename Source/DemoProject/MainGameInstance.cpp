@@ -2,6 +2,7 @@
 
 #include "DemoProject.h"
 #include "MainGameInstance.h"
+#include "04_ObjectPool/SparkyObjectPool.h"
 
 
 UMainGameInstance::UMainGameInstance()

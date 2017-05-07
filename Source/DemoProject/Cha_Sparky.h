@@ -15,10 +15,16 @@ private:
 	USpringArmComponent* springArm;
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* camera;
+	class USparkyAnimCtrl* SparkyAnimCtrl;
 
+	FVector2D CurMoveVec;
+	FVector2D FinalMoveVec;
 	float RunSpeed;
 	float WalkSpeed;
-	class USparkyAnimCtrl* SparkyAnimCtrl;
+	float NormalAttackSpeed;
+
+	//Socket
+	FName FirePointSocketName;
 public:
 	// Sets default values for this character's properties
 	ACha_Sparky();
@@ -31,8 +37,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	float GetRunSpeed() { return RunSpeed; }
-	float GetWalkSpeed() { return WalkSpeed; }
+	float GetMoveSpeed();
+	float GetNormalAttackSpeed() { return NormalAttackSpeed; }
+	FVector GetFirePointSocketLocation() const;
 
 	//AnimationFunction
 	void SetMoveAnim(FVector moveVector);

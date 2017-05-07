@@ -3,7 +3,7 @@
 #pragma once
 
 #include "Animation/AnimInstance.h"
-#include "SparkyStatus.h"
+#include "SparkyAnimStatus.h"
 #include "SparkyAnimCtrl.generated.h"
 
 /**
@@ -17,7 +17,7 @@ class DEMOPROJECT_API USparkyAnimCtrl : public UAnimInstance
 private :
 	UAnimMontage* NormalAttackMontage;
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "AnimProperty", meta = (AllowPrivateAccess = "true"))
-	SPARKY_STATUS SparkyStatus;
+	SPARKY_ANIM_STATUS SparkyAnimStatus;
 	//Anim Property
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "AnimProperty", meta = (AllowPrivateAccess = "true"))
 	float Forward;
@@ -31,11 +31,11 @@ private :
 public :
 	USparkyAnimCtrl();
 
-	void Init();
 	void SetMoveProperty(float forward, float right);
 	void SetFireButtonDown(bool fireButtonDown);
 	void SetIsFire(bool isFire);
 	
 	bool GetIsFireButtonDown() { return FireButtonDown; }
 	bool GetIsFire() { return IsFire; }
+	SPARKY_ANIM_STATUS GetAnimStatus() { return SparkyAnimStatus; }
 };

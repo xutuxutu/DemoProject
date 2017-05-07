@@ -12,7 +12,8 @@ UCLASS()
 class DEMOPROJECT_API UMainGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
-
+private :
+	class ASparkyObjectPool* SparkyObjectPool;
 private:
 	UMainGameInstance();
 };
